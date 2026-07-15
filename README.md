@@ -1,65 +1,26 @@
-*
- * Copyright (C) 2026 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+# ColdBoar CoreGuard
 
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.plugin.compose'
-}
+ColdBoar CoreGuard is an Android prototype for displaying device memory usage and a simulated CPU utilization indicator. The application includes a basic premium-upgrade flow and an accompanying software requirements draft.
 
-android {
-    compileSdk 36
-    namespace 'com.android.performance.janktest'
-    defaultConfig {
-        applicationId "com.android.performance.janktest"
-        minSdk 36
-        targetSdk 36
-        versionCode 1
-        versionName "1.0"
-    }
+## Repository contents
 
-    buildTypes {
-        debug {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
-        }
-    }
-    buildFeatures {
-        compose true
-    }
-}
+| Path | Description |
+|---|---|
+| `app/src/main/` | Android application source, layouts, and manifest |
+| `app/build.gradle` | Original Android module build configuration supplied with the project |
+| `docs/CoreGuard_Elite_SRD_Draft-1.pdf` | Software requirements draft |
+| `LICENSE` | Apache License 2.0 |
 
-dependencies {
-    implementation 'androidx.core:core-ktx:1.17.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.10.0'
-    implementation 'androidx.activity:activity-compose:1.12.4'
-    implementation platform('androidx.compose:compose-bom:2026.02.01')
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-graphics'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'com.google.android.material:material:1.13.0'
-    implementation 'androidx.recyclerview:recyclerview:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+## Current implementation
 
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest'
-}
+The main screen periodically reads Android memory statistics and refreshes the displayed RAM usage. CPU utilization is currently simulated with a random value rather than measured from the device. When the simulated value exceeds the configured threshold, non-premium users are directed to the upgrade screen.
+
+> **Prototype status:** Subscription handling is represented by a local placeholder and is not connected to a production billing provider. The source snapshot also does not include a Gradle wrapper or complete root-level Android build configuration.
+
+## Package
+
+The Android source package is `com.coldboar.coreguard`.
+
+## License
+
+This project is distributed under the Apache License 2.0. See [`LICENSE`](LICENSE).
