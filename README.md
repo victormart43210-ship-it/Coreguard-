@@ -9,6 +9,8 @@ ColdBoar CoreGuard is an Android prototype for displaying device memory usage an
 | `app/src/main/` | Android application source, layouts, and manifest |
 | `app/build.gradle` | Original Android module build configuration supplied with the project |
 | `docs/CoreGuard_Elite_SRD_Draft-1.pdf` | Software requirements draft |
+| `docs/forensics/database_uuid.md` | Evidence-qualified assessment of the Android `.database_uuid` metadata artifact |
+| `docs/third-party-tools.md` | Provenance and safety notes for optional developer tools |
 | `LICENSE` | Apache License 2.0 |
 
 ## Current implementation
@@ -20,6 +22,14 @@ The main screen periodically reads Android memory statistics and refreshes the d
 ## Package
 
 The Android source package is `com.coldboar.coreguard`.
+
+## Forensic knowledge base
+
+Qualified Android artifact assessments are stored under `docs/forensics/`. The current note on [`.database_uuid`](docs/forensics/database_uuid.md) explains its documented relationship to Android media thumbnail management while preserving the limits of app-specific attribution.
+
+## Optional developer tools
+
+Third-party developer utilities are kept separate from the Android application and documented in [`docs/third-party-tools.md`](docs/third-party-tools.md). They are not bundled into the CoreGuard APK.
 
 ## License
 
