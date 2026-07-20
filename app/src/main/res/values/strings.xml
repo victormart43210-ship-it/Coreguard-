@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ColdBoar CoreGuard</string>
+    <string name="cpu_simulated_format">CPU (simulated): %1$d%%</string>
+    <string name="ram_format">RAM used: %1$d / %2$d MB</string>
+    <string name="monitoring_status">Monitoring memory. CPU is simulated in this prototype.</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="paywall_title">CoreGuard Premium</string>
+    <string name="paywall_disclaimer">This prototype does not process real payments. Google Play Billing must be configured before release.</string>
+    <string name="unlock_lifetime_demo">Unlock lifetime (demo)</string>
+</resources>
