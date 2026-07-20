@@ -23,16 +23,13 @@ class MainActivity : AppCompatActivity() {
             if (!monitoring) return
 
             val memoryInfo = ActivityManager.MemoryInfo()
-            val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            activityManager.getMemoryInfo(memoryInfo)
-
-            val totalMb = memoryInfo.totalMem / (1024L * 1024L)
-            val availableMb = memoryInfo.availMem / (1024L * 1024L)
-            val usedMb = (totalMb - availableMb).coerceIn(0L, totalMb)
+            val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            manager.getMemoryInfo(memoryInfo)
+            val usage = MemoryUsageCalculator.fromBytes(memoryInfo.availMem, memoryInfo.totalMem)
             val simulatedCpu = (25..95).random()
 
             cpuView.text = getString(R.string.cpu_simulated_format, simulatedCpu)
-            ramView.text = getString(R.string.ram_format, usedMb, totalMb)
+            ramView.text = getString(R.string.ram_format, usage.usedMb, usage.totalMb)
 
             if (simulatedCpu > 80 && !SubscriptionManager.isPremium() && !paywallVisible) {
                 openPaywall()
@@ -45,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         SubscriptionManager.initialize(this)
-
         cpuView = findViewById(R.id.cpuText)
         ramView = findViewById(R.id.ramText)
         statusView = findViewById(R.id.statusText)
@@ -68,9 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (::statusView.isInitialized) {
-            statusView.text = getString(R.string.monitoring_status)
-        }
+        if (::statusView.isInitialized) statusView.text = getString(R.string.monitoring_status)
     }
 
     private fun openPaywall() {
