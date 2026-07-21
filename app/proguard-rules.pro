@@ -22,13 +22,11 @@
     public static ** valueOf(java.lang.String);
 }
 
-# Strip Android log calls from release builds to reduce information leakage in
-# logcat on production devices.
+# Strip verbose/debug/info Android log calls from release builds to reduce
+# routine information leakage in logcat on production devices while preserving
+# warning/error diagnostics.
 -assumenosideeffects class android.util.Log {
     public static int v(...);
     public static int d(...);
     public static int i(...);
-    public static int w(...);
-    public static int e(...);
-    public static int wtf(...);
 }
