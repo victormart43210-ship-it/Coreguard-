@@ -1,3 +1,36 @@
-# ProGuard/R8 rules for CoreGuard.
-# AndroidX and app classes are handled by their bundled consumer rules.
-# Keep this file under review when adding reflection, serialization, or billing.
+# ProGuard/R8 rules for CoreGuard release builds.
+#
+# The Android Gradle Plugin already contributes the default optimized Android
+# rule set. These app-specific rules focus on protecting the security surface
+# without breaking framework entry points or persisted app state.
+
+# Preserve Kotlin/annotation metadata commonly needed by AndroidX and Kotlin
+# generated code.
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+
+# The release build enables shrinking, but the security validator is not yet
+# wired into the app startup path. Keep it and its nested status model so the
+# hardening code remains present in release artifacts.
+# Source: app/src/main/kotlin/com/android/performance/janktest/security/SecurityValidator.kt
+-keep class com.android.performance.janktest.security.SecurityValidator {
+    public *;
+}
+
+# Preserve enum helper methods used when restoring the stored subscription tier
+# from SharedPreferences.
+# Source: app/src/main/java/com/coldboar/coreguard/SubscriptionManager.kt
+-keepclassmembers enum com.coldboar.coreguard.SubscriptionManager$Tier {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# Strip verbose/debug/info Android log calls from release builds to reduce
+# routine information leakage in logcat on production devices while preserving
+# warning/error diagnostics. This relies on the release build using
+# getDefaultProguardFile("proguard-android-optimize.txt") in
+# app/build.gradle.kts.
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int d(...);
+    public static int i(...);
+}
