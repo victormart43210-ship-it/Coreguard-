@@ -11,21 +11,24 @@
 # The release build enables shrinking, but the security validator is not yet
 # wired into the app startup path. Keep it and its nested status model so the
 # hardening code remains present in release artifacts.
--keep class com.**.SecurityValidator {
+# Source: app/src/main/kotlin/com/android/performance/janktest/security/SecurityValidator.kt
+-keep class com.android.performance.janktest.security.SecurityValidator {
     public *;
 }
 
 # Preserve enum helper methods used when restoring the stored subscription tier
 # from SharedPreferences.
--keepclassmembers enum com.**.SubscriptionManager$Tier {
+# Source: app/src/main/java/com/coldboar/coreguard/SubscriptionManager.kt
+-keepclassmembers enum com.coldboar.coreguard.SubscriptionManager$Tier {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
 
 # Strip verbose/debug/info Android log calls from release builds to reduce
 # routine information leakage in logcat on production devices while preserving
-# warning/error diagnostics. This relies on the release build already using the
-# optimized Android default ProGuard profile in `app/build.gradle.kts`.
+# warning/error diagnostics. This relies on the release build using
+# getDefaultProguardFile("proguard-android-optimize.txt") in
+# app/build.gradle.kts.
 -assumenosideeffects class android.util.Log {
     public static int v(...);
     public static int d(...);
