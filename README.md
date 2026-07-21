@@ -8,6 +8,7 @@ ColdBoar CoreGuard is an Android prototype for displaying device memory usage an
 |---|---|
 | `app/src/main/` | Android application source, layouts, and manifest |
 | `app/build.gradle` | Original Android module build configuration supplied with the project |
+| `app/proguard-rules.pro` | Release-only R8/ProGuard hardening rules for the Android app |
 | `docs/CoreGuard_Elite_SRD_Draft-1.pdf` | Software requirements draft |
 | `docs/forensics/database_uuid.md` | Evidence-qualified assessment of the Android `.database_uuid` metadata artifact |
 | `docs/third-party-tools.md` | Provenance and safety notes for optional developer tools |
