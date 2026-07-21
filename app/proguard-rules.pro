@@ -11,20 +11,21 @@
 # The release build enables shrinking, but the security validator is not yet
 # wired into the app startup path. Keep it and its nested status model so the
 # hardening code remains present in release artifacts.
--keep class **.SecurityValidator {
+-keep class com.**.SecurityValidator {
     public *;
 }
 
 # Preserve enum helper methods used when restoring the stored subscription tier
 # from SharedPreferences.
--keepclassmembers enum **.SubscriptionManager$Tier {
+-keepclassmembers enum com.**.SubscriptionManager$Tier {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
 
 # Strip verbose/debug/info Android log calls from release builds to reduce
 # routine information leakage in logcat on production devices while preserving
-# warning/error diagnostics.
+# warning/error diagnostics. This relies on the release build already using the
+# optimized Android default ProGuard profile in `app/build.gradle.kts`.
 -assumenosideeffects class android.util.Log {
     public static int v(...);
     public static int d(...);
