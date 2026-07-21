@@ -11,13 +11,13 @@
 # The release build enables shrinking, but the security validator is not yet
 # wired into the app startup path. Keep it and its nested status model so the
 # hardening code remains present in release artifacts.
--keep class com.android.performance.janktest.security.SecurityValidator {
+-keep class **.SecurityValidator {
     public *;
 }
 
 # Preserve enum helper methods used when restoring the stored subscription tier
 # from SharedPreferences.
--keepclassmembers enum com.coldboar.coreguard.SubscriptionManager$Tier {
+-keepclassmembers enum **.SubscriptionManager$Tier {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
